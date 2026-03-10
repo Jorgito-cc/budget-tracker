@@ -3,7 +3,6 @@
   "description": "Personal budget and expense tracking application built with React + TypeScript",
   "version": "1.0.0",
   "type": "module",
-  "license": "MIT",
   "author": "Jorgito-cc",
   "repository": {
     "type": "git",
