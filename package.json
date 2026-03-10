@@ -1,8 +1,14 @@
 {
-  "name": "client",
-  "private": true,
-  "version": "0.0.0",
+  "name": "budget-tracker",
+  "description": "Personal budget and expense tracking application built with React + TypeScript",
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
+  "author": "Jorgito-cc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jorgito-cc/budget-tracker.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
