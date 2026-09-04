@@ -2,6 +2,12 @@
 
 Aplicacion web para la gestion de presupuestos y control de gastos personales. Permite crear presupuestos activos, categorizar gastos y visualizar reportes con graficos interactivos.
 
+## Demostracion en Linea
+
+- Despliegue Frontend en Netlify: https://budget-tracker-b.netlify.app/login
+
+Nota sobre el entorno: El frontend se encuentra desplegado en Netlify como demostracion interactiva de la interfaz. La API Backend se ejecuta en entorno local junto con la base de datos PostgreSQL para procesar la autenticacion JWT y la persistencia de datos.
+
 ## Repositorios del Proyecto
 
 - Repositorio Frontend: https://github.com/Jorgito-cc/budget-tracker.git
