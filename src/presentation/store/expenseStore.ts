@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { Expense } from "../../domain/entities/Expense";
-import {
+import type {
   ExpensesByDayDTO,
   ExpensesByCategoryDTO,
+  CreateExpenseDTO,
 } from "../../domain/repositories/ExpenseRepository";
 import { ExpenseApiRepository } from "../../infrastructure/api/ExpenseApiRepository";
-import { CreateExpenseDTO } from "../../domain/repositories/ExpenseRepository";
 
 interface ExpenseState {
   expenses: Expense[];

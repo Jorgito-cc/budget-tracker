@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { User } from "../../domain/entities/User";
 import { AuthApiRepository } from "../../infrastructure/api/AuthApiRepository";
-import {
+import type {
   LoginDTO,
   RegisterDTO,
 } from "../../domain/repositories/AuthRepository";

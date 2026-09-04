@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { useCategoryStore } from "../../store/categoryStore";
 import { Category } from "../../../domain/entities/Category";
 

@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { ExpensesByDayDTO } from "../../../domain/repositories/ExpenseRepository";
+import type { ExpensesByDayDTO } from "../../../domain/repositories/ExpenseRepository";
 
 interface ExpensesByDayChartProps {
   data: ExpensesByDayDTO[];

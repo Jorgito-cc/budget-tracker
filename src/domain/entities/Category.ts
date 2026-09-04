@@ -1,8 +1,18 @@
 export class Category {
+  readonly id: string;
+  readonly name: string;
+  readonly color: string;
+  readonly totalExpenses?: number;
+
   constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly color: string,
-    public readonly totalExpenses?: number,
-  ) {}
+    id: string,
+    name: string,
+    color: string,
+    totalExpenses?: number,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.color = color;
+    this.totalExpenses = totalExpenses;
+  }
 }

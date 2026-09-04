@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Budget } from "../../domain/entities/Budget";
 import { BudgetApiRepository } from "../../infrastructure/api/BudgetApiRepository";
-import {
+import type {
   CreateBudgetDTO,
   UpdateBudgetDTO,
 } from "../../domain/repositories/BudgetRepository";

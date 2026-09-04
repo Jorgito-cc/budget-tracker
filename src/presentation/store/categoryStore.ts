@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Category } from "../../domain/entities/Category";
 import { CategoryApiRepository } from "../../infrastructure/api/CategoryApiRepository";
-import {
+import type {
   CreateCategoryDTO,
   UpdateCategoryDTO,
 } from "../../domain/repositories/CategoryRepository";

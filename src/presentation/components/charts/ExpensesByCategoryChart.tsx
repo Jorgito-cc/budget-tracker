@@ -6,7 +6,7 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
-import { ExpensesByCategoryDTO } from "../../../domain/repositories/ExpenseRepository";
+import type { ExpensesByCategoryDTO } from "../../../domain/repositories/ExpenseRepository";
 
 interface ExpensesByCategoryChartProps {
   data: ExpensesByCategoryDTO[];
