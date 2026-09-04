@@ -34,7 +34,7 @@ export function DashboardPage() {
     fetchExpensesByPeriod,
     fetchExpenses,
   } = useExpenseStore();
-  const { fetchCategories } = useCategoryStore();
+  const { categories, fetchCategories } = useCategoryStore();
   const { formatCurrency } = useConfigStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -103,7 +103,7 @@ export function DashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-              Presupuesto Semanal
+              {activeBudget.name}
             </h1>
             <p className="text-sm sm:text-base text-gray-600 mt-1">
               {format(new Date(activeBudget.startDate), "dd/MM/yyyy")} -{" "}
@@ -271,13 +271,13 @@ export function DashboardPage() {
                           className="w-3 h-3 rounded-full"
                           style={{
                             backgroundColor:
-                              expensesByCategory.find(
-                                (c) => c.name === expense.categoryId,
-                              )?.color || "#999",
+                              categories.find((c) => c.id === expense.categoryId)
+                                ?.color || "#999",
                           }}
                         />
                         <span className="text-sm font-medium text-gray-900">
-                          {index + 1}
+                          {categories.find((c) => c.id === expense.categoryId)
+                            ?.name || "Sin categoría"}
                         </span>
                       </span>
                     </td>
@@ -301,7 +301,7 @@ export function DashboardPage() {
         onClose={() => setIsModalOpen(false)}
         title="Registrar Nuevo Gasto"
       >
-        <ExpenseForm />
+        <ExpenseForm onSuccess={() => setIsModalOpen(false)} />
       </Modal>
     </Layout>
   );

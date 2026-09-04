@@ -36,6 +36,8 @@ export const ExpensesPage = () => {
       if (activeBudget) {
         fetchExpenses(activeBudget.id);
       }
+      fetchActiveBudgets();
+      fetchCategories();
     }
   };
 
@@ -224,7 +226,7 @@ export const ExpensesPage = () => {
         onClose={() => setIsModalOpen(false)}
         title="Registrar Nuevo Gasto"
       >
-        <ExpenseForm />
+        <ExpenseForm onSuccess={() => setIsModalOpen(false)} />
       </Modal>
     </Layout>
   );

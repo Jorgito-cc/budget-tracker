@@ -3,9 +3,13 @@ import { useExpenseStore } from "../../store/expenseStore";
 import { useCategoryStore } from "../../store/categoryStore";
 import { useBudgetStore } from "../../store/budgetStore";
 
-export const ExpenseForm = () => {
+interface ExpenseFormProps {
+  onSuccess?: () => void;
+}
+
+export const ExpenseForm = ({ onSuccess }: ExpenseFormProps) => {
   const { createExpense, isLoading } = useExpenseStore();
-  const { categories } = useCategoryStore();
+  const { categories, fetchCategories } = useCategoryStore();
   const { activeBudgets, fetchActiveBudgets } = useBudgetStore();
   const [error, setError] = useState<string | null>(null);
 
@@ -44,6 +48,9 @@ export const ExpenseForm = () => {
         budgetId: formData.budgetId,
       });
 
+      // Recargamos presupuestos activos y categorías para reflejar los nuevos totales
+      await Promise.all([fetchActiveBudgets(), fetchCategories()]);
+
       // Reseteamos formulario después de crear el gasto
       setFormData({
         amount: "",
@@ -52,6 +59,10 @@ export const ExpenseForm = () => {
         categoryId: "",
         budgetId: "",
       });
+
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.error ||

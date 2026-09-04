@@ -14,12 +14,54 @@ export class BudgetApiRepository implements BudgetRepository {
 
   async getAll(): Promise<Budget[]> {
     const response = await axiosInstance.get("/budgets");
-    return response.data.map((b: any) => this.mapToDomain(b));
+    const budgets = await Promise.all(
+      response.data.map(async (b: any) => {
+        if (b.totalExpenses !== undefined && b.remainingAmount !== undefined) {
+          return this.mapToDomain(b);
+        }
+        try {
+          const expRes = await axiosInstance.get(`/expenses/budget/${b.id}`);
+          const totalExpenses = (expRes.data || []).reduce(
+            (sum: number, exp: any) => sum + (Number(exp.amount) || 0),
+            0,
+          );
+          return this.mapToDomain({
+            ...b,
+            totalExpenses,
+            remainingAmount: Number(b.totalAmount) - totalExpenses,
+          });
+        } catch {
+          return this.mapToDomain(b);
+        }
+      }),
+    );
+    return budgets;
   }
 
   async getAllActive(): Promise<Budget[]> {
     const response = await axiosInstance.get("/budgets/active");
-    return response.data.map((b: any) => this.mapToDomain(b));
+    const budgets = await Promise.all(
+      response.data.map(async (b: any) => {
+        if (b.totalExpenses !== undefined && b.remainingAmount !== undefined) {
+          return this.mapToDomain(b);
+        }
+        try {
+          const expRes = await axiosInstance.get(`/expenses/budget/${b.id}`);
+          const totalExpenses = (expRes.data || []).reduce(
+            (sum: number, exp: any) => sum + (Number(exp.amount) || 0),
+            0,
+          );
+          return this.mapToDomain({
+            ...b,
+            totalExpenses,
+            remainingAmount: Number(b.totalAmount) - totalExpenses,
+          });
+        } catch {
+          return this.mapToDomain(b);
+        }
+      }),
+    );
+    return budgets;
   }
 
   async getSummary(id: string): Promise<Budget> {
@@ -37,15 +79,23 @@ export class BudgetApiRepository implements BudgetRepository {
   }
 
   private mapToDomain(data: any): Budget {
+    const totalAmount = Number(data.totalAmount) || 0;
+    const totalExpenses =
+      data.totalExpenses !== undefined ? Number(data.totalExpenses) : 0;
+    const remainingAmount =
+      data.remainingAmount !== undefined
+        ? Number(data.remainingAmount)
+        : totalAmount - totalExpenses;
+
     return new Budget(
       data.id,
       data.name,
-      data.totalAmount,
+      totalAmount,
       new Date(data.startDate),
       new Date(data.endDate),
-      data.totalExpenses || 0,
-      data.remainingAmount || data.totalAmount,
-      data.isActive || false,
+      totalExpenses,
+      remainingAmount,
+      data.isActive !== undefined ? Boolean(data.isActive) : false,
     );
   }
 }
